@@ -1,4 +1,4 @@
-export const FetchAPI = () => (
+const FetchAPI = () => (
   fetch(`https://opentdb.com/api.php?amount=5&token=${localStorage.getItem('token')}`)
     .then((response) => (
       response
