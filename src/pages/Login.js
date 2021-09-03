@@ -13,6 +13,15 @@ class Login extends React.Component {
     };
     this.validLogin = this.validLogin.bind(this);
     this.handleForm = this.handleForm.bind(this);
+    this.requestToken = this.requestToken.bind(this);
+  }
+
+  async requestToken() {
+    const returnedPromise = await
+    fetch('https://opentdb.com/api_token.php?command=request');
+    const returnedJson = await returnedPromise.json();
+    localStorage.setItem('token', returnedJson.token);
+    console.log(returnedJson);
   }
 
   handleForm({ target }) {
@@ -53,17 +62,21 @@ class Login extends React.Component {
           Password:
           <input
             name="name"
-            type="name"
+            type="password"
             data-testid="input-player-name"
             onChange={ this.handleForm }
           />
         </label>
-        <Link to="/">
-          {valid
-            ? <input type="Button" value="Jogar" data-testid="btn-play" />
+        <Link to="/game">
+          {valid ? <input
+            type="Button"
+            onClick={ this.requestToken }
+            value="Jogar"
+            data-testid="btn-play"
+          />
             : <input type="Button" value="Jogar" data-testid="btn-play" disabled />}
         </Link>
-        <Link to="/">
+        <Link to="/settings">
           <input type="Button" value="Configuracao" data-testid="btn-settings" />
         </Link>
       </div>
