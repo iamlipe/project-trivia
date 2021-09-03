@@ -9,20 +9,20 @@
   width: 300px;
 }
 
-.login-panel img{
+.login-panel img {
   margin: 10px;
   padding: 5px;
 }
 
-.login-panel input{
+.login-panel input {
   margin: 10px;
   padding: 5px;
 }
 
-.login-panel button{
+.login-panel button {
   padding: 5px;
 }
 
-.login-panel button:hover{
+.login-panel button:hover {
   cursor: pointer;
 }
