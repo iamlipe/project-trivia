@@ -1,22 +1,22 @@
 .login-panel {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   border: 1px solid black;
-  width: 300px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
   margin: 15% auto;
   padding: 20px;
-  border-radius: 16px;
+  width: 300px;
 }
 
 .login-panel img{
-  padding: 5px;
   margin: 10px;
+  padding: 5px;
 }
 
 .login-panel input{
-  padding: 5px;
   margin: 10px;
+  padding: 5px;
 }
 
 .login-panel button{
@@ -24,5 +24,5 @@
 }
 
 .login-panel button:hover{
-  cursor: pointer
+  cursor: pointer;
 }
