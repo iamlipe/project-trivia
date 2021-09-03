@@ -1,10 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class GameScreen extends React.Component {
   constructor(props) {
     super(props);
     this.renderGame = this.renderGame.bind(this);
+    this.handleBotao = this.handleBotao.bind(this);
+  }
+
+  handleBotao(item, index) {
+    return (
+      <button
+        data-testid={ `wrong-answer-${index}` }
+        type="button"
+        key={ index }
+      >
+        {item}
+
+      </button>);
   }
 
   renderGame() {
@@ -20,7 +34,7 @@ class GameScreen extends React.Component {
           {answer[0].correct_answer}
         </button>
         {answer[0].incorrect_answers.map(
-          (item, index) => <button data-testid={ `wrong-answer-${index}` } type="button" key={ index }>{item}</button>,
+          (item, index) => this.handleBotao(item, index),
         )}
       </div>
     );
@@ -37,5 +51,11 @@ class GameScreen extends React.Component {
 const mapStateToProps = (state) => ({
   answer: state.game,
 });
+
+GameScreen.propTypes = {
+  answer: PropTypes.shape({
+    isLoading: PropTypes.bool.isRequired,
+    answer: PropTypes.shape({}) }).isRequired,
+};
 
 export default connect(mapStateToProps, null)(GameScreen);
