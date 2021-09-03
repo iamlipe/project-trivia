@@ -1,0 +1,28 @@
+.login-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  width: 300px;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.login-panel img{
+  padding: 5px;
+  margin: 10px;
+}
+
+.login-panel input{
+  padding: 5px;
+  margin: 10px;
+}
+
+.login-panel button{
+  padding: 5px;
+}
+
+.login-panel button:hover{
+  cursor: pointer
+}
