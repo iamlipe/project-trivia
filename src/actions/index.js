@@ -5,6 +5,7 @@ import {
   fetchAPIERROR,
   fetchAPISUCESS,
   SET_TIMER,
+  SET_POINT,
 } from './actionTypes';
 
 export const ActionEmail = ({ email, nome }) => ({
@@ -39,4 +40,9 @@ export const setTimer = (timer, answer) => ({
   type: SET_TIMER,
   timer,
   answer,
+});
+
+export const PointSet = (point) => ({
+  type: SET_POINT,
+  point,
 });

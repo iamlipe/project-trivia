@@ -21,6 +21,13 @@ class Login extends React.Component {
   }
 
   async requestToken() {
+    const Player = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      score: 0,
+      assertions: 0,
+    };
+    localStorage.setItem('player', JSON.stringify(Player));
     const { getAPI } = this.props;
     const returnedPromise = await
     fetch('https://opentdb.com/api_token.php?command=request');
@@ -64,6 +71,7 @@ class Login extends React.Component {
         <label htmlFor="email">
           Email:
           <input
+            id="email"
             name="email"
             type="email"
             data-testid="input-gravatar-email"
@@ -73,6 +81,7 @@ class Login extends React.Component {
         <label htmlFor="password">
           Name:
           <input
+            id="name"
             name="name"
             type="text"
             data-testid="input-player-name"
