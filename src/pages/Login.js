@@ -21,13 +21,15 @@ class Login extends React.Component {
   }
 
   async requestToken() {
-    const Player = {
-      name: document.getElementById('name').value,
-      email: document.getElementById('email').value,
-      score: 0,
-      assertions: 0,
+    const state = {
+      player: {
+        name: document.getElementById('name').value,
+        assertions: 0,
+        score: 0,
+        gravatarEmail: document.getElementById('email').value,
+      },
     };
-    localStorage.setItem('player', JSON.stringify(Player));
+    localStorage.setItem('state', JSON.stringify(state));
     const { getAPI } = this.props;
     const returnedPromise = await
     fetch('https://opentdb.com/api_token.php?command=request');
