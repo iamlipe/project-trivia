@@ -3,6 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends React.Component {
+  // setScore () {
+  //   const POINTS_CORRECT_ANSWER = 10;
+  //   const { answers } = this.props;
+  //   const answerDifficulty = answers[0].difficulty;
+  //   const scoreAnswer = POINTS_CORRECT_ANSWER + (timer * answerDifficulty);
+
+  // }
+
   render() {
     const { name } = this.props;
     return (
@@ -23,4 +31,9 @@ Header.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default connect(null, null)(Header);
+const mapStateToProps = ({ game }) => ({
+  answers: game.answer,
+  timer: game.timer,
+});
+
+export default connect(mapStateToProps, null)(Header);

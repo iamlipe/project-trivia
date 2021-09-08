@@ -1,5 +1,11 @@
 import FetchAPI from '../services/fetchAnswers';
-import { getUser, fetchAPI, fetchAPIERROR, fetchAPISUCESS } from './actionTypes';
+import {
+  getUser,
+  fetchAPI,
+  fetchAPIERROR,
+  fetchAPISUCESS,
+  SET_TIMER,
+} from './actionTypes';
 
 export const ActionEmail = ({ email, nome }) => ({
   type: getUser,
@@ -28,3 +34,9 @@ export const FecthAPI = () => (dispatch) => {
       () => dispatch(fetchAPIERROR()),
     );
 };
+
+export const setTimer = (timer, answer) => ({
+  type: SET_TIMER,
+  timer,
+  answer,
+});

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { setTimer } from '../actions';
 import './GameScreen.css';
 
 class GameScreen extends React.Component {
@@ -13,6 +14,28 @@ class GameScreen extends React.Component {
     this.renderGame = this.renderGame.bind(this);
     this.handleBotao = this.handleBotao.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.setTimer = this.setTimer.bind(this);
+  }
+
+  componentDidMount() {
+    this.setTimer();
+  }
+
+  setTimer() {
+    const ONE_SECOND = 1000;
+    const TIMER = setInterval(() => {
+      const { loading, reduxTimer, question, timer } = this.props;
+      if (timer <= 0 || question === true) {
+        console.log('s');
+        clearInterval(TIMER);
+        reduxTimer(timer, question);
+        Array.from(document.getElementsByTagName('button'))
+          .forEach((item) => { item.disabled = true; });
+      } else if (loading === false) {
+        const newTimer = parseFloat(timer) - 1;
+        reduxTimer(newTimer, question);
+      }
+    }, ONE_SECOND);
   }
 
   handleBotao(item, index) {
@@ -31,11 +54,13 @@ class GameScreen extends React.Component {
   }
 
   handleClick({ target: { value } }) {
+    const { reduxTimer, timer } = this.props;
     if (value === 'correct') {
       this.setState({ isCorrect: value, isIncorrect: 'incorrect' });
     } else if (value === 'incorrect') {
       this.setState({ isCorrect: 'correct', isIncorrect: value });
     }
+    reduxTimer(timer, true);
   }
 
   renderGame() {
@@ -69,14 +94,25 @@ class GameScreen extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  answer: state.game,
-});
-
 GameScreen.propTypes = {
   answer: PropTypes.shape({
-    isLoading: PropTypes.bool.isRequired,
-    answer: PropTypes.shape({}) }).isRequired,
-};
+    isLoading: PropTypes.bool,
+    answer: PropTypes.shape({}) }),
+  reduxTimer: PropTypes.func,
+  timer: PropTypes.number,
+  question: PropTypes.bool,
+  loading: PropTypes.bool,
+}.isRequired;
 
-export default connect(mapStateToProps, null)(GameScreen);
+const mapStateToProps = (state) => ({
+  loading: state.game.isLoading,
+  answer: state.game,
+  timer: state.game.timer,
+  question: state.game.question,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  reduxTimer: (timer, answer) => dispatch(setTimer(timer, answer)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);
