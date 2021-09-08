@@ -1,10 +1,16 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas aos jogos
-import { fetchAPI, fetchAPIERROR, fetchAPISUCESS } from '../actions/actionTypes';
+import {
+  fetchAPI,
+  fetchAPIERROR,
+  fetchAPISUCESS,
+  SET_TIMER,
+} from '../actions/actionTypes';
 
 const INITIAL_API_STATE = {
   isLoading: true,
   erro: null,
   answer: {},
+  timer: 30,
 };
 
 const Fetching = (state = INITIAL_API_STATE, action) => {
@@ -23,6 +29,12 @@ const Fetching = (state = INITIAL_API_STATE, action) => {
       ...state,
       isLoading: false,
       erro: 'DEU RUIM',
+    };
+
+  case SET_TIMER:
+    return {
+      ...state,
+      timer: action.timer,
     };
 
   default:
