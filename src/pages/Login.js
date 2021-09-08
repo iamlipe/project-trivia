@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './Login.css';
+import md5 from 'crypto-js/md5';
+import PropTypes from 'prop-types';
+import { FecthAPI } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -14,14 +17,17 @@ class Login extends React.Component {
     this.validLogin = this.validLogin.bind(this);
     this.handleForm = this.handleForm.bind(this);
     this.requestToken = this.requestToken.bind(this);
+    this.handleHash = this.handleHash.bind(this);
   }
 
   async requestToken() {
+    const { getAPI } = this.props;
     const returnedPromise = await
     fetch('https://opentdb.com/api_token.php?command=request');
     const returnedJson = await returnedPromise.json();
     localStorage.setItem('token', returnedJson.token);
-    console.log(returnedJson);
+    this.handleHash();
+    getAPI();
   }
 
   handleForm({ target }) {
@@ -37,16 +43,22 @@ class Login extends React.Component {
     const REGEX_EMAIL = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
     const REGEX_NAME = 1;
     const isValidEmail = email.match(REGEX_EMAIL) !== null;
-    const isValidPassword = name.length >= REGEX_NAME;
-    if (isValidEmail === true && isValidPassword === true) {
+    const isValidName = name.length >= REGEX_NAME;
+    if (isValidEmail === true && isValidName === true) {
       this.setState({
         valid: true,
       });
     }
   }
 
+  handleHash() {
+    const { email } = this.state;
+    const encryptado = md5(email).toString();
+    localStorage.setItem('hash', encryptado);
+  }
+
   render() {
-    const { valid } = this.state;
+    const { valid, name } = this.state;
     return (
       <div className="login-panel">
         <label htmlFor="email">
@@ -59,15 +71,15 @@ class Login extends React.Component {
           />
         </label>
         <label htmlFor="password">
-          Password:
+          Name:
           <input
             name="name"
-            type="password"
+            type="text"
             data-testid="input-player-name"
             onChange={ this.handleForm }
           />
         </label>
-        <Link to="/game">
+        <Link to={ { pathname: '/game', state: { name } } }>
           {valid ? <input
             type="Button"
             onClick={ this.requestToken }
@@ -77,11 +89,19 @@ class Login extends React.Component {
             : <input type="Button" value="Jogar" data-testid="btn-play" disabled />}
         </Link>
         <Link to="/settings">
-          <input type="Button" value="Configuracao" data-testid="btn-settings" />
+          <input type="Button" defaultValue="Configuracao" data-testid="btn-settings" />
         </Link>
       </div>
     );
   }
 }
 
-export default connect(null, null)(Login);
+const mapDispatchToProps = (dispatch) => ({
+  getAPI: () => dispatch(FecthAPI()),
+});
+
+Login.propTypes = {
+  getAPI: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
