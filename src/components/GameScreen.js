@@ -1,40 +1,81 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { setTimer } from '../actions';
 import './GameScreen.css';
 
 class GameScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isCorrect: '',
+      isIncorrect: '',
+    };
     this.renderGame = this.renderGame.bind(this);
     this.handleBotao = this.handleBotao.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.setTimer = this.setTimer.bind(this);
+  }
+
+  componentDidMount() {
+    this.setTimer();
+  }
+
+  setTimer() {
+    const ONE_SECOND = 1000;
+    const TIMER = setInterval(() => {
+      const { loading, reduxTimer, question, timer } = this.props;
+      if (timer <= 0 || question === true) {
+        console.log('s');
+        clearInterval(TIMER);
+        reduxTimer(timer, question);
+        Array.from(document.getElementsByTagName('button'))
+          .forEach((item) => { item.disabled = true; });
+      } else if (loading === false) {
+        const newTimer = parseFloat(timer) - 1;
+        reduxTimer(newTimer, question);
+      }
+    }, ONE_SECOND);
   }
 
   handleBotao(item, index) {
-    const { onClick } = this.props;
+    const { isIncorrect } = this.state;
     return (
       <button
         data-testid={ `wrong-answer-${index}` }
+        className={ isIncorrect }
         type="button"
+        value="incorrect"
         key={ index }
-        onClick={ onClick }
+        onClick={ this.handleClick }
       >
         {item}
-
       </button>);
   }
 
+  handleClick({ target: { value } }) {
+    const { reduxTimer, timer } = this.props;
+    if (value === 'correct') {
+      this.setState({ isCorrect: value, isIncorrect: 'incorrect' });
+    } else if (value === 'incorrect') {
+      this.setState({ isCorrect: 'correct', isIncorrect: value });
+    }
+    reduxTimer(timer, true);
+  }
+
   renderGame() {
-    const { answer: { answer }, onClick } = this.props;
+    const { answer: { answer } } = this.props;
+    const { isCorrect } = this.state;
     return (
       <div>
         <h1 data-testid="question-category">{answer[0].category}</h1>
         <h1 data-testid="question-text">{answer[0].question}</h1>
         <button
-          className="button"
           type="button"
+          className={ isCorrect }
           data-testid="correct-answer"
-          onClick={ onClick }
+          value="correct"
+          onClick={ this.handleClick }
         >
           {answer[0].correct_answer}
         </button>
@@ -55,13 +96,23 @@ class GameScreen extends React.Component {
 
 GameScreen.propTypes = {
   answer: PropTypes.shape({
-    isLoading: PropTypes.bool.isRequired,
-    answer: PropTypes.shape({}) }).isRequired,
-  onClick: PropTypes.func.isRequired,
-};
+    isLoading: PropTypes.bool,
+    answer: PropTypes.shape({}) }),
+  reduxTimer: PropTypes.func,
+  timer: PropTypes.number,
+  question: PropTypes.bool,
+  loading: PropTypes.bool,
+}.isRequired;
 
 const mapStateToProps = (state) => ({
+  loading: state.game.isLoading,
   answer: state.game,
+  timer: state.game.timer,
+  question: state.game.question,
 });
 
-export default connect(mapStateToProps, null)(GameScreen);
+const mapDispatchToProps = (dispatch) => ({
+  reduxTimer: (timer, answer) => dispatch(setTimer(timer, answer)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);

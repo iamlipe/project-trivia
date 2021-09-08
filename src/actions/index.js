@@ -35,7 +35,8 @@ export const FecthAPI = () => (dispatch) => {
     );
 };
 
-export const setTimer = (timer) => ({
+export const setTimer = (timer, answer) => ({
   type: SET_TIMER,
   timer,
+  answer,
 });

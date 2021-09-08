@@ -11,6 +11,7 @@ const INITIAL_API_STATE = {
   erro: null,
   answer: {},
   timer: 30,
+  question: false,
 };
 
 const Fetching = (state = INITIAL_API_STATE, action) => {
@@ -35,6 +36,7 @@ const Fetching = (state = INITIAL_API_STATE, action) => {
     return {
       ...state,
       timer: action.timer,
+      question: action.answer,
     };
 
   default:
