@@ -7,11 +7,11 @@ import './GameScreen.css';
 class GameScreen extends React.Component {
   constructor(props) {
     super(props);
-    const player = localStorage.getItem('player');
+    const state = localStorage.getItem('state');
     this.state = {
       isCorrect: '',
       isIncorrect: '',
-      player: JSON.parse(player),
+      player: JSON.parse(state),
     };
     this.renderGame = this.renderGame.bind(this);
     this.handleBotao = this.handleBotao.bind(this);
@@ -27,13 +27,15 @@ class GameScreen extends React.Component {
   }
 
   componentDidUpdate() {
-    // const player = localStorage.getItem('player');
-    // const { point } = this.props;
-    // const newPlayer = {
-    //   ...JSON.parse(player),
-    //   score: point,
-    // };
-    // localStorage.setItem('player', newPlayer);
+    const state = localStorage.getItem('state');
+    const { point } = this.props;
+    const newPlayer = {
+      player: {
+        ...JSON.parse(state).player,
+        score: point,
+      },
+    };
+    localStorage.setItem('state', JSON.stringify(newPlayer));
   }
 
   async setScore(param) {
@@ -96,14 +98,13 @@ class GameScreen extends React.Component {
   }
 
   handleClick({ target: { value } }) {
-    const { reduxTimer, timer, point } = this.props;
+    const { reduxTimer, timer } = this.props;
     if (value === 'correct') {
       this.setState({ isCorrect: value, isIncorrect: 'incorrect' });
       this.setScore('correct');
     } else if (value === 'incorrect') {
       this.setState({ isCorrect: 'correct', isIncorrect: value });
       this.setScore('incorrect');
-      localStorage.setItem('score', point);
     }
     reduxTimer(timer, true);
   }
