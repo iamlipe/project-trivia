@@ -29,7 +29,7 @@ class GameScreen extends React.Component {
         console.log('s');
         clearInterval(TIMER);
         reduxTimer(timer, question);
-        Array.from(document.getElementsByTagName('button'))
+        Array.from(document.getElementsByClassName('botao'))
           .forEach((item) => { item.disabled = true; });
       } else if (loading === false) {
         const newTimer = parseFloat(timer) - 1;
@@ -43,7 +43,7 @@ class GameScreen extends React.Component {
     return (
       <button
         data-testid={ `wrong-answer-${index}` }
-        className={ isIncorrect }
+        className={ `${isIncorrect} botao` }
         type="button"
         value="incorrect"
         key={ index }
@@ -64,7 +64,7 @@ class GameScreen extends React.Component {
   }
 
   renderGame() {
-    const { answer: { answer } } = this.props;
+    const { answer: { answer, question } } = this.props;
     const { isCorrect } = this.state;
     return (
       <div>
@@ -72,7 +72,7 @@ class GameScreen extends React.Component {
         <h1 data-testid="question-text">{answer[0].question}</h1>
         <button
           type="button"
-          className={ isCorrect }
+          className={ `${isCorrect} botao` }
           data-testid="correct-answer"
           value="correct"
           onClick={ this.handleClick }
@@ -82,6 +82,7 @@ class GameScreen extends React.Component {
         {answer[0].incorrect_answers.map(
           (item, index) => this.handleBotao(item, index),
         )}
+        {question === true ? <button type="button" data-testid="btn-next">Proxima Pergunta</button> : null}
       </div>
     );
   }
