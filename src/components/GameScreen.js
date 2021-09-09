@@ -147,12 +147,12 @@ class GameScreen extends React.Component {
 
   renderButtonWithLink() {
     return (
-      <Link to="/ranking">
+      <Link to="/feedback">
         <button
           type="button"
           data-testid="btn-next"
         >
-          Ranking
+          Feedback
         </button>
       </Link>
     );
