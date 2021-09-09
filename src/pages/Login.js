@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import './Login.css';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
-import { FecthAPI } from '../actions';
+import { ActionEmail, FecthAPI } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -21,6 +21,9 @@ class Login extends React.Component {
   }
 
   async requestToken() {
+    const { getAPI, sendFormLogin } = this.props;
+    const { email, name } = this.state;
+    sendFormLogin(email, name);
     const state = {
       player: {
         name: document.getElementById('name').value,
@@ -30,7 +33,6 @@ class Login extends React.Component {
       },
     };
     localStorage.setItem('state', JSON.stringify(state));
-    const { getAPI } = this.props;
     const returnedPromise = await
     fetch('https://opentdb.com/api_token.php?command=request');
     const returnedJson = await returnedPromise.json();
@@ -109,10 +111,12 @@ class Login extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getAPI: () => dispatch(FecthAPI()),
+  sendFormLogin: (email, name) => dispatch(ActionEmail(email, name)),
 });
 
 Login.propTypes = {
   getAPI: PropTypes.func.isRequired,
+  sendFormLogin: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);

@@ -3,13 +3,13 @@ import { getUser } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   email: '',
-  nome: '',
+  name: '',
 };
 
 const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case getUser:
-    return { ...state, email: action.email, nome: action.nome };
+    return { ...state, email: action.email, name: action.name };
   default:
     return state;
   }

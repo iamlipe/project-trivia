@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { setTimer, PointSet } from '../actions';
 import './GameScreen.css';
@@ -9,6 +10,7 @@ class GameScreen extends React.Component {
     super(props);
     const state = localStorage.getItem('state');
     this.state = {
+      indexQuestion: 0,
       isCorrect: '',
       isIncorrect: '',
       player: JSON.parse(state),
@@ -20,6 +22,9 @@ class GameScreen extends React.Component {
     this.nextAnswers = this.nextAnswers.bind(this);
     this.setState = this.setState.bind(this);
     this.mudarState = this.mudarState.bind(this);
+    this.handleClickQuestion = this.handleClickQuestion.bind(this);
+    this.renderButtonWithLink = this.renderButtonWithLink.bind(this);
+    this.renderButtonWithoutLink = this.renderButtonWithoutLink.bind(this);
   }
 
   componentDidMount() {
@@ -109,19 +114,66 @@ class GameScreen extends React.Component {
     reduxTimer(timer, true);
   }
 
+  handleClickQuestion() {
+    const { reduxTimer } = this.props;
+    const { indexQuestion } = this.state;
+    const LIMITER_QUESTION = 4;
+    if (indexQuestion === LIMITER_QUESTION) {
+      return <Redirect push to="/ranking" />;
+    }
+    this.setState((prevState) => ({
+      indexQuestion: prevState.indexQuestion + 1,
+      isCorrect: '',
+      isIncorrect: '',
+    }));
+    Array.from(document.getElementsByClassName('botao'))
+      .forEach((item) => { item.disabled = false; });
+    const REFRESH_TIMER = 30;
+    reduxTimer(REFRESH_TIMER, false);
+    this.setTimer();
+  }
+
   nextAnswers() {
+    const { indexQuestion } = this.state;
+    const LIMITER_QUESTION = 4;
     return (
-      <button type="button" data-testid="btn-next">Proxima Pergunta</button>
+      indexQuestion === LIMITER_QUESTION
+        ? this.renderButtonWithLink() : this.renderButtonWithoutLink()
+    );
+  }
+
+  renderButtonWithLink() {
+    return (
+      <Link to="/ranking">
+        <button
+          type="button"
+          data-testid="btn-next"
+        >
+          Ranking
+        </button>
+      </Link>
+    );
+  }
+
+  renderButtonWithoutLink() {
+    return (
+      <button
+        type="button"
+        onClick={ this.handleClickQuestion }
+        data-testid="btn-next"
+      >
+        Proxima Pergunta
+      </button>
     );
   }
 
   renderGame() {
     const { pergunta, question } = this.props;
-    const { isCorrect } = this.state;
+    const { indexQuestion, isCorrect } = this.state;
     return (
       <div>
-        <h1 data-testid="question-category">{pergunta[0].category}</h1>
-        <h1 data-testid="question-text">{pergunta[0].question}</h1>
+        <h1 data-testid="question-category">{pergunta[indexQuestion].category}</h1>
+        <h1 data-testid="question-text">{pergunta[indexQuestion].question}</h1>
         <button
           type="button"
           className={ `${isCorrect} botao` }
@@ -129,9 +181,9 @@ class GameScreen extends React.Component {
           value="correct"
           onClick={ this.handleClick }
         >
-          {pergunta[0].correct_answer}
+          {pergunta[indexQuestion].correct_answer}
         </button>
-        {pergunta[0].incorrect_answers.map(
+        {pergunta[indexQuestion].incorrect_answers.map(
           (item, index) => this.handleBotao(item, index),
         )}
         {question === true ? this.nextAnswers() : null}

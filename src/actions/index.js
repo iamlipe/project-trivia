@@ -8,10 +8,10 @@ import {
   SET_POINT,
 } from './actionTypes';
 
-export const ActionEmail = ({ email, nome }) => ({
+export const ActionEmail = (email, name) => ({
   type: getUser,
   email,
-  nome,
+  name,
 });
 
 export const Fetching = () => ({
