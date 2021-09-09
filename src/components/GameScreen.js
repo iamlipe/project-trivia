@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { setTimer, PointSet } from '../actions';
 import './GameScreen.css';
@@ -103,10 +103,18 @@ class GameScreen extends React.Component {
   }
 
   handleClick({ target: { value } }) {
+    const state = localStorage.getItem('state');
     const { reduxTimer, timer } = this.props;
     if (value === 'correct') {
       this.setState({ isCorrect: value, isIncorrect: 'incorrect' });
       this.setScore('correct');
+      const newPlayer = {
+        player: {
+          ...JSON.parse(state).player,
+          assertions: JSON.parse(state).player.assertions + 1,
+        },
+      };
+      localStorage.setItem('state', JSON.stringify(newPlayer));
     } else if (value === 'incorrect') {
       this.setState({ isCorrect: 'correct', isIncorrect: value });
       this.setScore('incorrect');
@@ -116,11 +124,6 @@ class GameScreen extends React.Component {
 
   handleClickQuestion() {
     const { reduxTimer } = this.props;
-    const { indexQuestion } = this.state;
-    const LIMITER_QUESTION = 4;
-    if (indexQuestion === LIMITER_QUESTION) {
-      return <Redirect push to="/ranking" />;
-    }
     this.setState((prevState) => ({
       indexQuestion: prevState.indexQuestion + 1,
       isCorrect: '',
@@ -144,12 +147,12 @@ class GameScreen extends React.Component {
 
   renderButtonWithLink() {
     return (
-      <Link to="/ranking">
+      <Link to="/feedback">
         <button
           type="button"
           data-testid="btn-next"
         >
-          Ranking
+          Feedback
         </button>
       </Link>
     );
