@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Header } from '../components';
 
 class Ranking extends React.Component {
@@ -7,6 +8,7 @@ class Ranking extends React.Component {
 
     this.handleFeedback = this.handleFeedback.bind(this);
     this.handleRanking = this.handleRanking.bind(this);
+    this.handlePlayAgain = this.handlePlayAgain.bind(this);
   }
 
   handleFeedback() {
@@ -44,12 +46,21 @@ class Ranking extends React.Component {
     );
   }
 
+  handlePlayAgain() {
+    return (
+      <Link to="/">
+        <button type="button" data-testid="btn-play-again">Jogar Novamente</button>
+      </Link>
+    );
+  }
+
   render() {
     return (
       <>
         <Header />
         { this.handleFeedback() }
         { this.handleRanking() }
+        { this.handlePlayAgain() }
       </>
     );
   }

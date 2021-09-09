@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { setTimer, PointSet } from '../actions';
 import './GameScreen.css';
@@ -124,11 +124,6 @@ class GameScreen extends React.Component {
 
   handleClickQuestion() {
     const { reduxTimer } = this.props;
-    const { indexQuestion } = this.state;
-    const LIMITER_QUESTION = 4;
-    if (indexQuestion === LIMITER_QUESTION) {
-      return <Redirect push to="/ranking" />;
-    }
     this.setState((prevState) => ({
       indexQuestion: prevState.indexQuestion + 1,
       isCorrect: '',
