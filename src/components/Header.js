@@ -25,8 +25,9 @@ Header.propTypes = {
     answer: PropTypes.shape({}) }),
 }.isRequired;
 
-const mapStateToProps = ({ game }) => ({
+const mapStateToProps = ({ game, user }) => ({
   answers: game.answer,
+  name: user.name,
   timer: game.timer,
   point: game.point,
 });
