@@ -6,6 +6,7 @@ class Ranking extends React.Component {
     super(props);
 
     this.handleFeedback = this.handleFeedback.bind(this);
+    this.handleRanking = this.handleRanking.bind(this);
   }
 
   handleFeedback() {
@@ -23,11 +24,32 @@ class Ranking extends React.Component {
     }
   }
 
+  handleRanking() {
+    const state = localStorage.getItem('state');
+    return (
+      <>
+        <h1
+          data-testid="feedback-total-score"
+        >
+          {JSON.parse(state).player.score}
+
+        </h1>
+        <h1
+          data-testid="feedback-total-question"
+        >
+          {JSON.parse(state).player.assertions}
+
+        </h1>
+      </>
+    );
+  }
+
   render() {
     return (
       <>
         <Header />
         { this.handleFeedback() }
+        { this.handleRanking() }
       </>
     );
   }
