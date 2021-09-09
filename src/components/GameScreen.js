@@ -23,6 +23,8 @@ class GameScreen extends React.Component {
     this.setState = this.setState.bind(this);
     this.mudarState = this.mudarState.bind(this);
     this.handleClickQuestion = this.handleClickQuestion.bind(this);
+    this.renderButtonWithLink = this.renderButtonWithLink.bind(this);
+    this.renderButtonWithoutLink = this.renderButtonWithoutLink.bind(this);
   }
 
   componentDidMount() {
@@ -115,24 +117,53 @@ class GameScreen extends React.Component {
   handleClickQuestion() {
     const { reduxTimer } = this.props;
     const { indexQuestion } = this.state;
-    if (indexQuestion === 4) {
+    const LIMITER_QUESTION = 4;
+    if (indexQuestion === LIMITER_QUESTION) {
       return <Redirect push to="/ranking" />;
     }
-    this.setState((prevState) => ({ 
+    this.setState((prevState) => ({
       indexQuestion: prevState.indexQuestion + 1,
       isCorrect: '',
       isIncorrect: '',
-    }))
+    }));
     Array.from(document.getElementsByClassName('botao'))
-          .forEach((item) => { item.disabled = false; });
-    reduxTimer(30, false);
+      .forEach((item) => { item.disabled = false; });
+    const REFRESH_TIMER = 30;
+    reduxTimer(REFRESH_TIMER, false);
     this.setTimer();
   }
 
   nextAnswers() {
     const { indexQuestion } = this.state;
+    const LIMITER_QUESTION = 4;
     return (
-       indexQuestion === 4 ? <Link to="/ranking"><button type="button" data-testid="btn-next">Ranking</button></Link> : <button type="button" onClick={ this.handleClickQuestion } data-testid="btn-next">Proxima Pergunta</button>
+      indexQuestion === LIMITER_QUESTION
+        ? this.renderButtonWithLink() : this.renderButtonWithoutLink()
+    );
+  }
+
+  renderButtonWithLink() {
+    return (
+      <Link to="/ranking">
+        <button
+          type="button"
+          data-testid="btn-next"
+        >
+          Ranking
+        </button>
+      </Link>
+    );
+  }
+
+  renderButtonWithoutLink() {
+    return (
+      <button
+        type="button"
+        onClick={ this.handleClickQuestion }
+        data-testid="btn-next"
+      >
+        Proxima Pergunta
+      </button>
     );
   }
 
