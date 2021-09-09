@@ -103,10 +103,18 @@ class GameScreen extends React.Component {
   }
 
   handleClick({ target: { value } }) {
+    const state = localStorage.getItem('state');
     const { reduxTimer, timer } = this.props;
     if (value === 'correct') {
       this.setState({ isCorrect: value, isIncorrect: 'incorrect' });
       this.setScore('correct');
+      const newPlayer = {
+        player: {
+          ...JSON.parse(state).player,
+          assertions: JSON.parse(state).player.assertions + 1,
+        },
+      };
+      localStorage.setItem('state', JSON.stringify(newPlayer));
     } else if (value === 'incorrect') {
       this.setState({ isCorrect: 'correct', isIncorrect: value });
       this.setScore('incorrect');
