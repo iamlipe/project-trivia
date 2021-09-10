@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   render() {
-    const { name, point } = this.props;
     return (
       <div>
         <img
@@ -12,8 +11,12 @@ class Header extends React.Component {
           alt="img-profile"
           src={ `https://www.gravatar.com/avatar/${localStorage.getItem('hash')}` }
         />
-        <span data-testid="header-player-name">{name}</span>
-        <span data-testid="header-score">{point}</span>
+        <span data-testid="header-player-name">
+          {JSON.parse(localStorage.getItem('state')).player.name}
+        </span>
+        <span data-testid="header-score">
+          {JSON.parse(localStorage.getItem('state')).player.score}
+        </span>
       </div>
     );
   }
@@ -27,6 +30,7 @@ Header.propTypes = {
 
 const mapStateToProps = ({ game, user }) => ({
   answers: game.answer,
+  loading: game.isLoading,
   name: user.name,
   timer: game.timer,
   point: game.point,
