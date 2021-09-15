@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Header } from '../components';
+import { Header, Nav } from '../components';
+
+import brain from '../assets/image/brain_2.png';
 
 class Feedback extends React.Component {
   constructor(props) {
     super(props);
-
     this.handleFeedback = this.handleFeedback.bind(this);
     this.handleRanking = this.handleRanking.bind(this);
     this.handlePlayAgain = this.handlePlayAgain.bind(this);
@@ -17,12 +18,22 @@ class Feedback extends React.Component {
     const THREE = 3;
     if (JSON.parse(state).player.assertions < THREE) {
       return (
-        <h1 data-testid="feedback-text">Podia ser melhor...</h1>
+        <p
+          className="feedback-mensage"
+          data-testid="feedback-text"
+        >
+          Podia ser melhor...
+        </p>
       );
     }
     if (JSON.parse(state).player.assertions >= THREE) {
       return (
-        <h1 data-testid="feedback-text">Mandou bem!</h1>
+        <p
+          className="feedback-mensage"
+          data-testid="feedback-text"
+        >
+          Mandou bem!
+        </p>
       );
     }
   }
@@ -31,18 +42,20 @@ class Feedback extends React.Component {
     const state = localStorage.getItem('state');
     return (
       <>
-        <h1
-          data-testid="feedback-total-score"
-        >
-          {JSON.parse(state).player.score}
-
-        </h1>
-        <h1
+        <p
+          className="assertions"
           data-testid="feedback-total-question"
         >
-          {JSON.parse(state).player.assertions}
+          { `Acertou ${JSON.parse(state).player.assertions} perguntas`}
 
-        </h1>
+        </p>
+        <p
+          className="score"
+          data-testid="feedback-total-score"
+        >
+          {`Você conseguiu ${JSON.parse(state).player.score} pontos`}
+
+        </p>
       </>
     );
   }
@@ -50,7 +63,14 @@ class Feedback extends React.Component {
   handlePlayAgain() {
     return (
       <Link to="/">
-        <button type="button" data-testid="btn-play-again">Jogar Novamente</button>
+        <button
+          type="button"
+          data-testid="btn-play-again"
+        >
+          jogar
+          <br />
+          novamente
+        </button>
       </Link>
     );
   }
@@ -58,7 +78,12 @@ class Feedback extends React.Component {
   handleButtRanking() {
     return (
       <Link to="/ranking">
-        <button type="button" data-testid="btn-ranking">Ranking</button>
+        <button
+          type="button"
+          data-testid="btn-ranking"
+        >
+          Ranking
+        </button>
       </Link>
     );
   }
@@ -66,11 +91,17 @@ class Feedback extends React.Component {
   render() {
     return (
       <>
-        <Header />
-        { this.handleFeedback() }
-        { this.handleRanking() }
-        { this.handlePlayAgain() }
-        { this.handleButtRanking() }
+        <Header waveHeader={ false } color="black" />
+        <div className="container-feedback">
+          { this.handleFeedback() }
+          { this.handleRanking() }
+          <img className="brain-2" src={ brain } alt="brain" />
+          <div className="button-box">
+            { this.handlePlayAgain() }
+            { this.handleButtRanking() }
+          </div>
+        </div>
+        <Nav />
       </>
     );
   }

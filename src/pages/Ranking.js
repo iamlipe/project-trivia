@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ListPlayerRanking } from '../components';
+import { ListPlayerRanking, Nav } from '../components';
+
+import world from '../assets/image/world_2.png';
 
 class Ranking extends React.Component {
   constructor(props) {
@@ -10,8 +12,13 @@ class Ranking extends React.Component {
 
   handlePlayAgain() {
     return (
-      <Link to="/">
-        <button type="button" data-testid="btn-go-home">Jogar Novamente</button>
+      <Link className="play-again" to="/">
+        <button type="button" data-testid="btn-go-home">
+          Jogar
+          <br />
+          {' '}
+          Novamente
+        </button>
       </Link>
     );
   }
@@ -19,13 +26,21 @@ class Ranking extends React.Component {
   render() {
     const state = localStorage.getItem('state');
     return (
-      <>
-        <h1 data-testid="ranking-title">RANKING</h1>
+      <div className="container-ranking">
+        <h1 className="title-ranking" data-testid="ranking-title">RANKING</h1>
+        <div className="content-list">
+          {JSON.parse(state).ranking
+            .sort((a, b) => b.score - a.score)
+            .map((item, index) => (<ListPlayerRanking
+              key={ index }
+              data={ item }
+              podium={ index }
+            />))}
+        </div>
         { this.handlePlayAgain() }
-        {JSON.parse(state).ranking
-          .sort((a, b) => b.score - a.score)
-          .map((item, index) => <ListPlayerRanking key={ index } data={ item } />)}
-      </>
+        <img className="world" src={ world } alt="world" />
+        <Nav />
+      </div>
     );
   }
 }

@@ -1,9 +1,12 @@
+/* eslint-disable max-lines */
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { setTimer, PointSet, resetStore } from '../actions';
-import './GameScreen.css';
+
+import brain from '../assets/image/brain_1.png';
+import stop from '../assets/image/stop.svg';
 
 class GameScreen extends React.Component {
   constructor(props) {
@@ -163,6 +166,7 @@ class GameScreen extends React.Component {
     return (
       <Link to="/feedback">
         <button
+          className="next-button"
           type="button"
           data-testid="btn-next"
           onClick={ this.savePlayerRanking }
@@ -176,34 +180,50 @@ class GameScreen extends React.Component {
   renderButtonWithoutLink() {
     return (
       <button
+        className="next-button"
         type="button"
         onClick={ this.handleClickQuestion }
         data-testid="btn-next"
       >
-        Proxima Pergunta
+        Proxima
       </button>
     );
   }
 
   renderGame() {
-    const { pergunta, question } = this.props;
+    const { pergunta, question, timer } = this.props;
     const { indexQuestion, isCorrect } = this.state;
     return (
-      <div>
-        <h1 data-testid="question-category">{pergunta[indexQuestion].category}</h1>
-        <h1 data-testid="question-text">{pergunta[indexQuestion].question}</h1>
-        <button
-          type="button"
-          className={ `${isCorrect} botao` }
-          data-testid="correct-answer"
-          value="correct"
-          onClick={ this.handleClick }
-        >
-          {pergunta[indexQuestion].correct_answer}
-        </button>
-        {pergunta[indexQuestion].incorrect_answers.map(
-          (item, index) => this.handleBotao(item, index),
-        )}
+      <div className="container-game-screen">
+        <h5 data-testid="question-category">{pergunta[indexQuestion].category}</h5>
+        <div className="question-box">
+          <h1
+            className="question"
+            data-testid="question-text"
+          >
+            {pergunta[indexQuestion].question}
+          </h1>
+        </div>
+
+        <div className="button-box">
+          <button
+            type="button"
+            className={ `${isCorrect} botao` }
+            data-testid="correct-answer"
+            value="correct"
+            onClick={ this.handleClick }
+          >
+            {pergunta[indexQuestion].correct_answer}
+          </button>
+          {pergunta[indexQuestion].incorrect_answers.map(
+            (item, index) => this.handleBotao(item, index),
+          )}
+        </div>
+        <img className="brain" src={ brain } alt="brain" />
+        <div className="box-timer">
+          <img className="stop" src={ stop } alt="stop" />
+          <span className="timer">{timer}</span>
+        </div>
         {question === true ? this.nextAnswers() : null}
       </div>
     );
@@ -212,7 +232,9 @@ class GameScreen extends React.Component {
   render() {
     const { answer: { isLoading } } = this.props;
     return (
-      isLoading === true ? <h1>Loading</h1> : this.renderGame()
+      <div>
+        {isLoading === true ? <h1>Loading</h1> : this.renderGame()}
+      </div>
     );
   }
 }

@@ -1,0 +1,700 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import 'media-queries';
+
+$background: #E0F4FF;
+$white: #FFFFFF;
+$fontcolor: #262626;
+
+
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+body {
+	background-color: $background;
+	color: $fontcolor;
+  width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.container-login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	.world-login {
+		position: absolute;
+    top: 200px;
+    width: 340px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+    margin-left: -12px;
+		margin-top: -10px;
+    @include small-phones-height {
+      top: 50px;
+    }
+    @include tablets {
+      margin-left: -20px;
+      top: 150px;
+      width: auto;
+    }
+	}
+	.warning-login {
+		position: absolute;
+    top: 360px;
+		left: 50.5%;
+		transform: translate(-50%, -50%);
+    width: 180px;
+    @include small-phones-height {
+      top: 210px;
+    }
+    @include tablets {
+      top: 480px;
+      width: auto;
+    }
+	}
+	.trivia-login {
+		position: absolute;
+    top: 350px;
+    left: 49.5%;
+    width: 190px;
+		transform: translate(-50%, -50%);
+    @include small-phones-height {
+      top: 190px;
+    }
+    @include tablets {
+      top: 380px;
+      left: 50%;
+      width: auto;
+    }
+	}
+	.form-login {
+		display: flex;
+    width: 100%;
+		flex-direction: column;
+		justify-content: center;
+    align-items: center;
+		position: absolute;
+    top: 500px;
+		padding: 20px;
+    @include small-phones-height {
+      top: 350px;
+    }
+    @include tablets {
+      top: 430px;
+    }
+		input {
+      width: 250px;
+			height: 30px;
+			background: #FFFAFA;
+			border: 1px solid #000000;
+      border-radius: 2px;
+			box-sizing: border-box;
+			box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+			font-size: 12px;
+			margin: 7.5px 0;
+			padding: 3px 8px;
+      @include small-phones-height {
+        width: 220px;
+        font-size: 10px;
+      }
+      @include tablets {
+        width: 180px;
+      }
+		}
+		input[type=button], input[type=submit], input[type=reset] {
+      width: 250px;
+			box-shadow: none;
+			padding: 0;
+			cursor: pointer;
+			text-decoration: none;
+			font-size: 16px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+      border-radius: 2px;
+      margin: 10px 20px 20px 20px;
+      @include small-phones-height {
+        width: 220px;
+        font-size: 14px;
+      }
+      @include tablets {
+        width: 220px;
+      }
+		}
+    .enabled {
+      background-color: $fontcolor;
+      color: $white;
+    }
+    
+    .disabled {
+      background-color: #c4c4c4;
+      color: #868686;
+    }   
+	}
+	.config-login {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		text-decoration: none;
+    img {
+      width: 18px;
+      @include tablets {
+        width: auto;
+      }
+    }
+		input[type=button], input[type=submit], input[type=reset] {
+			background-color: transparent;
+			color: $fontcolor;
+			cursor: pointer;
+      font-size: 10px;
+		}
+	}
+}
+
+
+
+.container-header {
+	display: flex;
+	justify-content: center;
+	width: 100vw;
+  @include small-phones-height {
+    margin-top: -20px;
+  }
+	.wave {
+		position: absolute;
+		width: 101%;
+		z-index: -1;
+		top: -80px;
+		left: 0px;
+    display: none;
+    @include tablets {
+      display: flex;
+      top: 0px;
+    }
+    @include laptops {
+      top: -90px;
+    }
+    @include laptops-to-desktop {
+      top: -120px;
+    }
+    @include desktops {
+      top: -140px;
+    }
+    @include large-desktop {
+      top: -180px;
+    }
+    @include bigger-desktop {
+      top: -230px;
+    }
+	}
+	.content-header {
+		width: 90%;
+    height: 150px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+    color: $white;
+		margin: 10px 30px;
+    @include tablets {
+      margin: 40px 10px;
+      height: 200px;
+      width: 75%;
+    }
+		.profile-box {
+			height: 100%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			.profile-picture {
+				height: 50px;
+				width: 50px;
+				box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.25);
+				border-radius: 5px;
+				margin: 0 20px;
+        @include tablets {
+          height: 100px;
+          width: 100px;
+          margin-right: 50px;
+        }
+			}
+			.header-name {
+				font-size: 14px;
+				font-weight: 700;
+        color: $fontcolor;
+        @include tablets {
+          font-size: 18px;
+          color: $white;
+        }
+			}
+      .black {
+        color: $fontcolor;
+      }
+		}
+    .header-score {
+      font-size: 14px;
+      font-weight: 700;
+      color: $fontcolor;
+      margin-right: 20px;
+      @include tablets {
+        font-size: 18px;
+        color: $white;
+      }
+    }
+    .black {
+      color: $fontcolor;
+    }
+	}
+
+}
+
+
+.container-game {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  @include small-phones-height {
+    margin-top: -30px;
+  }
+  @include laptops {
+    margin-top: 20px;
+  }
+	.container-game-screen {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		text-align: center;
+    @include tablets {
+      width: 600px;
+    }
+		.question-box {
+			display: flex;
+			align-items: center;
+      height: 120px;
+      width: 90%;
+			align-self: center;
+      @include tablets {
+        width: 100%;
+        height: 150px;
+      }
+			.question {
+				font-size: 18px;
+				font-weight: 700;
+        @include tablets {
+          font-size: 30px;
+        }
+			}
+		}
+		.button-box {
+			width: 100%;
+			height: 200px;
+			display: flex;
+			flex-direction: column;
+      align-items: center;
+			justify-content: center;
+      @include tablets {
+        height: 150px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 30px 0px;
+      }
+			.botao {
+				height: 40px;
+				width: 80%;
+				margin: 5px 0px;
+				background: #FFFFFF;
+				box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+        border: 2px solid $fontcolor;
+        cursor: pointer;
+        @include tablets {
+          width: calc(45% - 20px);
+          margin: 15px;
+          &:hover {
+            animation: input 0.3s ease-in-out forwards;
+          }
+        }
+			}
+			.incorrect {
+				background: #FFE7E7;
+				border: 2px solid #FF0000;
+			}
+			.correct {
+				background: #F6FFF1;
+				border: 2px solid #4E9C27;
+			}
+		}
+		.brain {
+			position: absolute;
+      top: 75%;
+			left: 3%;
+      width: 141px;
+      height: 141px;
+      @include small-phones-height {
+        top: 82%;
+        left: 1%;
+        width: 100px;
+        height: 100px;
+      }
+      @include tablets {
+        top: 72%;
+        width: 160px;
+        height: 160px;
+      }
+		}
+		.box-timer {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			height: 100px;
+      margin-top: 10px;
+      @include tablets {
+        margin-top: 0;
+      }
+			.stop {
+				position: absolute;
+				z-index: -1;
+				filter: drop-shadow(0px 5px 15px rgba(0, 0, 0, 0.25));
+			}
+			.timer {
+				font-size: 36px;
+				font-weight: 800;
+				text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+			}
+		}
+	}
+	.next-button {
+		position: absolute;
+		top: 82%;
+		right: 5%;
+		background-color: transparent;
+		border: none;
+		font-size: 14px;
+		font-weight: 700;
+		padding: 18px 12px;
+		cursor: pointer;
+    @include small-phones-height {
+      top: 86.7%;
+    }
+    @include tablets {
+      font-size: 18px;
+      top: 680px;
+      right: 10%;
+      &:hover {
+        animation: input 0.3s ease-in-out forwards;
+      }
+    }
+    @include laptops {
+      top: 700px;
+    }
+	}
+}
+
+.nav {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+  @include tablets {
+    top: 20px;
+    right: 40px;
+  }
+	img {
+		cursor: pointer;
+    margin: 5px;
+    width: 20px;
+    height: 20px;
+    @include tablets {
+      width: auto;
+      height: auto;
+      margin: 7.5px;
+    }
+	}
+}
+
+.container-feedback {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  @include tablets {
+    margin-top: 0;
+  }
+  .button-box {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    margin: 100px;
+    @include phones {
+      width: 60%;
+    }
+    @include laptops{
+      width: 50%;
+      margin: 50px;
+    }
+    @include desktops {
+      width: 30%;
+    }
+    a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      button {
+        background-color: transparent;
+        cursor: pointer;
+        text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+        font-size: 14px;
+        padding: 0 10px 20px 10px;
+        @include tablets {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+
+  .brain-2 {
+    margin: 40px 0 20px 0;
+    width: 210px;
+    height: 114px;
+    @include tablets {
+      font-size: 36px;
+      width: auto;
+      height: auto;
+    }
+  }
+
+  .feedback-mensage {
+    font-size: 18px;
+    font-weight: 600;
+    @include tablets {
+      font-size: 36px;
+    }
+  }
+  .score {
+    font-size: 18px;
+    font-weight: 600;
+    @include tablets {
+      font-size: 36px;
+    }
+  }
+  .assertions {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 20px;
+    @include tablets {
+      font-size: 36px;
+    }
+  }
+}
+
+.container-ranking {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+  @include tablets {
+    margin-top: 0%;
+  }
+  .world {
+    position: absolute;
+    z-index: -1;
+    width: 318px;
+    height: 305px;
+    bottom: 0px;
+    left: 0px;
+    @include tablets {
+      width: 400px;
+      height: 382px;
+      bottom: 0px;
+      left: 0px;
+    }
+    @include laptops {
+      width: 500px;
+      height: 478px;
+      bottom: 0px;
+      left: 0px;
+    }
+    @include desktops {
+      width: auto;
+      height: auto;
+      bottom: 0px;
+      left: 0px;
+    }
+  }
+  .content-list {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 500px;
+    @include phones {
+      width: 70%;
+      height: 533px;
+    }
+    @include tablets {
+      margin: 10px;
+      width: 60%;
+      height: 566px;
+    }
+    @include desktops {
+      width: 50%;
+      height: 600px;
+    }
+    .list-ranking {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .player-info {
+        display: flex;
+        align-items: center;
+        width: 60%;
+        @include phones {
+          width: 50%;
+        }
+        @include tablets {
+          width: 45%;
+        }
+        @include laptops {
+          width: 40%;
+        }
+        @include desktops {
+          width: 35%;
+        }
+        img {
+          width: 40px;
+          height: 40px;
+          margin: 10px;
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+          border-radius: 5px;
+          @include tablets {
+            width: 45px;
+            height: 45px;
+            margin: 15px;
+          }
+          @include desktops {
+            width: 50px;
+            height: 50px;
+            margin: 20px;
+          }
+        }
+        span {
+          margin: 10px;
+          font-size: 12px;
+          font-weight: 600;
+          margin-left: 10px;
+          @include tablets {
+            font-size: 14px;
+          }
+          @include laptops {
+            font-size: 16px;
+          }
+          @include desktops {
+            font-size: 18px;
+          }
+        }
+      }
+
+      .medal-box {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        width: 20%;
+        @include phones {
+          width: 25%;
+        }
+        @include tablets {
+          width: 35%;
+        }
+        @include laptops{
+          width: 40%;
+        }
+        .medal {
+          width: 18px;
+          height: 22.5px;
+          @include tablets {
+            width: auto;
+            height: auto;
+          }
+        }
+      }
+
+      .score-ranking {
+        font-size: 10px;
+        font-weight: 600;
+        @include tablets {
+          font-size: 12px;
+        }
+        @include laptops {
+          font-size: 14px;
+        }
+        @include desktops {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .title-ranking {
+    font-size: 24px;
+    padding: 40px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    @include tablets {
+      font-size: 36px;
+    }
+  }
+  nav {
+    display: flex;
+    flex-direction: row;
+  }
+  .play-again {
+    position: absolute;
+    bottom: 60px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    @include tablets {
+      right: 10%;
+    }
+    button {
+      background-color: transparent;
+      cursor: pointer;
+      text-shadow: 0px 10px 15px rgba(0, 0, 0, 0.25);
+      font-size: 18px;
+      padding: 0 10px 20px 10px;
+    }
+  }
+}
+
+.music {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  .x {
+    display: none;
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    right: 0;
+    top: 0;
+  }
+}
+
+
+
+@keyframes input {
+  to {
+    transform: scale(1.02);
+  }
+}

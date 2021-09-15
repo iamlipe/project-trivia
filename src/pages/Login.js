@@ -1,10 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import './Login.css';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import { ActionEmail, FecthAPI } from '../actions';
+
+import world from '../assets/image/world_1.png';
+import warning from '../assets/image/warning.svg';
+import trivia from '../assets/image/trivia.png';
+import config from '../assets/image/config.svg';
 
 class Login extends React.Component {
   constructor() {
@@ -18,6 +22,7 @@ class Login extends React.Component {
     this.handleForm = this.handleForm.bind(this);
     this.requestToken = this.requestToken.bind(this);
     this.handleHash = this.handleHash.bind(this);
+    this.buttonDisabled = this.buttonDisabled.bind(this);
   }
 
   async requestToken() {
@@ -41,6 +46,7 @@ class Login extends React.Component {
     fetch('https://opentdb.com/api_token.php?command=request');
     const returnedJson = await returnedPromise.json();
     localStorage.setItem('token', returnedJson.token);
+    document.querySelector('audio').play();
     getAPI();
   }
 
@@ -71,41 +77,56 @@ class Login extends React.Component {
     localStorage.setItem('hash', encryptado);
   }
 
+  buttonDisabled() {
+    return (
+      <input
+        className="disabled"
+        type="Button"
+        value="jogar"
+        data-testid="btn-play"
+        disabled
+      />
+    );
+  }
+
   render() {
     const { valid, name } = this.state;
     return (
-      <div className="login-panel">
-        <label htmlFor="email">
-          Email:
+      <div className="container-login">
+        <img className="world-login" src={ world } alt="world" />
+        <img className="warning-login" src={ warning } alt="warning" />
+        <img className="trivia-login" src={ trivia } alt="trivia" />
+        <div className="form-login">
           <input
+            placeholder="email"
             id="email"
             name="email"
             type="email"
             data-testid="input-gravatar-email"
             onChange={ this.handleForm }
           />
-        </label>
-        <label htmlFor="password">
-          Name:
           <input
+            placeholder="name"
             id="name"
             name="name"
             type="text"
             data-testid="input-player-name"
             onChange={ this.handleForm }
           />
-        </label>
-        <Link to={ { pathname: '/game', state: { name } } }>
-          {valid ? <input
-            type="Button"
-            onClick={ this.requestToken }
-            value="Jogar"
-            data-testid="btn-play"
-          />
-            : <input type="Button" value="Jogar" data-testid="btn-play" disabled />}
-        </Link>
-        <Link to="/settings">
-          <input type="Button" defaultValue="Configuracao" data-testid="btn-settings" />
+          <Link to={ { pathname: '/game', state: { name } } }>
+            {valid ? <input
+              className="enabled"
+              type="Button"
+              onClick={ this.requestToken }
+              value="jogar"
+              data-testid="btn-play"
+            />
+              : this.buttonDisabled() }
+          </Link>
+        </div>
+        <Link className="config-login" to="/settings">
+          <img src={ config } alt="config" />
+          <input type="Button" defaultValue="Configuracão" data-testid="btn-settings" />
         </Link>
       </div>
     );

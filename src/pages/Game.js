@@ -2,16 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setTimer } from '../actions';
-import { Header, GameScreen } from '../components';
+import { Header, GameScreen, Nav } from '../components';
 
 class Game extends React.Component {
   render() {
-    const { location: { state: { name } }, timer } = this.props;
+    const { location: { state: { name } } } = this.props;
     return (
       <>
         <Header name={ name } />
-        <GameScreen />
-        <span>{timer}</span>
+        <div className="container-game">
+          <GameScreen />
+        </div>
+        <Nav />
       </>
     );
   }
@@ -23,7 +25,6 @@ Game.propTypes = {
       name: PropTypes.string,
     }).isRequired,
   }).isRequired,
-  timer: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({ game }) => ({
