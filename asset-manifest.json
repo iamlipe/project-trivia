@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/project-trivia/static/css/main.2949dfc4.chunk.css",
+    "main.js": "/project-trivia/static/js/main.2f55a67c.chunk.js",
+    "main.js.map": "/project-trivia/static/js/main.2f55a67c.chunk.js.map",
+    "runtime-main.js": "/project-trivia/static/js/runtime-main.d9e70092.js",
+    "runtime-main.js.map": "/project-trivia/static/js/runtime-main.d9e70092.js.map",
+    "static/js/2.b0cd5357.chunk.js": "/project-trivia/static/js/2.b0cd5357.chunk.js",
+    "static/js/2.b0cd5357.chunk.js.map": "/project-trivia/static/js/2.b0cd5357.chunk.js.map",
+    "index.html": "/project-trivia/index.html",
+    "precache-manifest.3d22948b1e18500648bdf271de8e9dbf.js": "/project-trivia/precache-manifest.3d22948b1e18500648bdf271de8e9dbf.js",
+    "service-worker.js": "/project-trivia/service-worker.js",
+    "static/css/main.2949dfc4.chunk.css.map": "/project-trivia/static/css/main.2949dfc4.chunk.css.map",
+    "static/js/2.b0cd5357.chunk.js.LICENSE": "/project-trivia/static/js/2.b0cd5357.chunk.js.LICENSE",
+    "static/media/0.svg": "/project-trivia/static/media/0.d202c301.svg",
+    "static/media/1.svg": "/project-trivia/static/media/1.d9ce77c9.svg",
+    "static/media/2.svg": "/project-trivia/static/media/2.d3d99502.svg",
+    "static/media/brain_1.png": "/project-trivia/static/media/brain_1.5d322e64.png",
+    "static/media/brain_2.png": "/project-trivia/static/media/brain_2.4c3b6e13.png",
+    "static/media/config.svg": "/project-trivia/static/media/config.cb6edcd6.svg",
+    "static/media/header.svg": "/project-trivia/static/media/header.e48c2700.svg",
+    "static/media/home.svg": "/project-trivia/static/media/home.6f564c6c.svg",
+    "static/media/music.svg": "/project-trivia/static/media/music.989f7fe9.svg",
+    "static/media/sneaky.mp3": "/project-trivia/static/media/sneaky.2823b103.mp3",
+    "static/media/stop.svg": "/project-trivia/static/media/stop.31882b3e.svg",
+    "static/media/trivia.png": "/project-trivia/static/media/trivia.e323612a.png",
+    "static/media/warning.svg": "/project-trivia/static/media/warning.840ae09f.svg",
+    "static/media/world_1.png": "/project-trivia/static/media/world_1.bda62d85.png",
+    "static/media/world_2.png": "/project-trivia/static/media/world_2.ecb3974b.png",
+    "static/media/x.svg": "/project-trivia/static/media/x.e00a0778.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d9e70092.js",
+    "static/js/2.b0cd5357.chunk.js",
+    "static/css/main.2949dfc4.chunk.css",
+    "static/js/main.2f55a67c.chunk.js"
+  ]
+}
